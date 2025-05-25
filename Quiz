@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+public class QuizQuestion {
+        // label the objects
+    static class QuizQuestion {
+        String question;
+        String answerA, answerB, answerC, answerD;
+        String answer;
+        // Introduce the options and answer
+        public QuizQuestion(String question, String answerA, String answerB, String answerC, String answerD, String answer) {
+            this.question = question;
+            this.answerA = answerA;
+            this.answerB = answerB;
+            this.answerC = answerC;
+            this.answerD = answerD;
+            this.answer = answer;
+        }
+        //ignore if the input is lower/upper case
+        public boolean isCorrectAnswer(String guess) {
+            return guess.equalsIgnoreCase(answer);
+        }
+    }
+    //print the options
+    public static void displayQuizQuestion(QuizQuestion question) {
+        System.out.println(question.question);
+        System.out.println("a) " + question.answerA);
+        System.out.println("b) " + question.answerB);
+        System.out.println("c) " + question.answerC);
+        System.out.println("d) " + question.answerD);
+        System.out.print("Enter your answer (a, b, c, or d): ");
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int final = 0;
+        //introduce the actual questions and options
+        System.out.println("Welcome to the Danny Quiz");
+
+        QuizQuestion question1 = new QuizQuestion(
+                "Who is stinky?",
+                "Angie", "Manny", "Danny", "Luis", "b"
+        );
+        QuizQuestion question2 = new QuizQuestion(
+                "How many tiems does Danny backflip",
+                "100/day", "1000/millisecond", "Infinite", "Never", "c"
+        );
+        QuizQuestion question3 = new QuizQuestion(
+                "How Short is Danny?",
+                "2 feet", "24 Inches", "1 foot + 1 foot", "negative", "d"
+        );
+
+        QuizQuestion[] questions = {question1, question2, question3};
+
+        for (QuizQuestion q : questions) {
+            displayQuizQuestion(q);
+            String userAnswer = scanner.nextLine();
+            //printed answers if the answer is correct, incorrect, or invalid
+            if (userAnswer.equalsIgnoreCase("a") || userAnswer.equalsIgnoreCase("b") ||
+                    userAnswer.equalsIgnoreCase("c") || userAnswer.equalsIgnoreCase("d")) {
+                if (q.isCorrectAnswer(userAnswer)) {
+                    System.out.println("Correct! Great job!");
+                    final++;
+                } else {
+                    System.out.println("Incorrect. The correct answer is " + q.answer + ".");
+                }
+            } else {
+                System.out.println("Invalid input. The correct answer is " + q.answer + ".");
+            }
+        }
+        //your final score
+        System.out.println("You got " + final + " out of " + questions.length + " questions correct!");
+
+    }
+}
